@@ -1,0 +1,26 @@
+
+;; ----- smex-history -----
+(
+ textmate-mode
+ package-install
+ view-external-packages
+ server-start
+ customize-themes
+ package-refresh-contents
+ cd
+)
+
+;; ----- smex-data -----
+(
+ (package-install . 11)
+ (color-theme-print . 1)
+ (color-theme-select . 1)
+ (package-refresh-contents . 4)
+ (color-theme-describe . 7)
+ (load-theme . 16)
+ (cd . 1)
+ (customize-themes . 6)
+ (server-start . 1)
+ (view-external-packages . 1)
+ (textmate-mode . 1)
+)
