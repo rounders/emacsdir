@@ -5,7 +5,7 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/")
 ;;(load-theme 'manoj-dark)
-(load-theme 'pastels-on-dark t)
+;;(load-theme 'pastels-on-dark t)
 
 
 ;;(enable-theme 'tron)
@@ -28,9 +28,3 @@
 (textmate-mode)   
 (setq ns-pop-up-frames nil)
 
-;; if you want line number down the left
-;;(add-hook 'abg-code-modes-hook
-;;          (lambda () (linum-mode 1)))
-
-;;(add-hook 'ruby-mode-hook
-;;          (lambda () (run-hooks 'abg-code-modes-hook)))
