@@ -6,4 +6,7 @@ rmm5t/private.el
 .org-id-locations
 *.elc
 places
+.smex-items
+local
+
 
