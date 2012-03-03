@@ -48,6 +48,6 @@
 
 (global-set-key (kbd "C-x C-g") 'magit-status)
 
-# put any machine-local configuration into local/local.el
+;; put any machine-local configuration into local/local.el
 (add-to-list 'load-path "~/.emacs.d/local")
 (load "local")
