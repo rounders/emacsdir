@@ -15,6 +15,11 @@
 ;;(load-theme 'manoj-dark)
 ;;(load-theme 'pastels-on-dark t)
 
+(require 'rvm)
+(rvm-use-default);;
+
+(add-hook 'ruby-mode-hook
+          (lambda () (rvm-activate-corresponding-ruby)))
 
 ;;(enable-theme 'tron)
 
