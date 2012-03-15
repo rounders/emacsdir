@@ -9,5 +9,5 @@ places
 .smex-items
 local
 eshell
-
+*.dat
 
