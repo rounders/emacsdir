@@ -28,12 +28,33 @@
 
 (set-frame-font "Menlo-16")
 
+(setq scroll-conservatively 10000)
+
 (add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
 (require 'textmate) 
+
+(require 'rspec-mode)
+(setq rspec-spec-command "rspec")
+;; (setq rspec-use-rvm t)
+(setq rspec-use-rake-flag nil)
+
+
 (add-to-list 'load-path "~/.emacs.d/vendor/")
 (require 'peepopen)
 (textmate-mode)
 (setq ns-pop-up-frames nil)
+(define-key rspec-mode-keymap (kbd "s") 'rspec-verify-single)
+
+
+(defun shell-command-on-buffer-file ()
+ "prompts for a command and executes that command on to the associated 
+ file of current buffer. if no buffer is associated gives an error"
+  (interactive)
+  (or (buffer-file-name) (error "no file is associated file to this buffer"))
+  (let* ((my-cmd (read-shell-command "Command to run: "))
+         (cmd-to-run (concat my-cmd " " (buffer-file-name))))
+   (shell-command cmd-to-run)))
+
 
 
 (setq el-get-sources
