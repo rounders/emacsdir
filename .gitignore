@@ -8,5 +8,6 @@ rmm5t/private.el
 places
 .smex-items
 local
-
+eshell
+*.dat
 

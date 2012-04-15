@@ -15,6 +15,11 @@
 ;;(load-theme 'manoj-dark)
 ;;(load-theme 'pastels-on-dark t)
 
+(require 'rvm)
+(rvm-use-default);;
+
+(add-hook 'ruby-mode-hook
+          (lambda () (rvm-activate-corresponding-ruby)))
 
 ;;(enable-theme 'tron)
 
@@ -72,3 +77,10 @@
 ;; put any machine-local configuration into local/local.el
 (add-to-list 'load-path "~/.emacs.d/local")
 (load "local")
+
+(add-to-list 'load-path "~/.emacs.d")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+
+
