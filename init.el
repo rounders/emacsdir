@@ -79,6 +79,7 @@
   (set-frame-width (selected-frame) 120))
 
 (global-set-key (kbd "C-x C-g") 'magit-status)
+(global-set-key (kbd "M-s-“") 'indent-region)
 
 ;; put any machine-local configuration into local/local.el
 (add-to-list 'load-path "~/.emacs.d/local")
