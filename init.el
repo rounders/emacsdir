@@ -93,3 +93,6 @@
 
 (setq scss-compile-at-save nil)
 (setq css-indent-offset 2)
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
