@@ -1,21 +1,21 @@
 
 ;; ----- smex-history -----
 (
- textmate-mode
  package-install
- view-external-packages
- server-start
- customize-themes
+ find-file
  package-refresh-contents
- cd
+ rgrep
+ mkdir
+ find-variable
+ describe-bindings
 )
 
 ;; ----- smex-data -----
 (
- (package-install . 11)
+ (package-install . 15)
  (color-theme-print . 1)
  (color-theme-select . 1)
- (package-refresh-contents . 4)
+ (package-refresh-contents . 5)
  (color-theme-describe . 7)
  (load-theme . 16)
  (cd . 1)
@@ -23,4 +23,19 @@
  (server-start . 1)
  (view-external-packages . 1)
  (textmate-mode . 1)
+ (rspec-verify-single . 6)
+ (shell . 2)
+ (compile . 1)
+ (describe-function . 2)
+ (describe-bindings . 5)
+ (rspec-mode . 3)
+ (goto-line . 1)
+ (mkdir . 2)
+ (shell-command . 4)
+ (rgrep . 19)
+ (indent-region . 4)
+ (indent-according-to-mode . 3)
+ (global-set-key . 1)
+ (find-variable . 1)
+ (find-file . 1)
 )
