@@ -112,3 +112,6 @@
 (require 'key-chord)
 (key-chord-mode 1)
 (key-chord-define-global "FF"     'find-file)
+
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
