@@ -97,6 +97,8 @@
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+
+
 (global-set-key (kbd "C-x C-f") 'textmate-goto-file)
 
 (require 'coffee-mode)
@@ -112,3 +114,6 @@
 (require 'key-chord)
 (key-chord-mode 1)
 (key-chord-define-global "FF"     'find-file)
+
+;; remove trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
