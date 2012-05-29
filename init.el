@@ -36,7 +36,7 @@
 (setq scroll-conservatively 10000)
 
 (add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
-(require 'textmate) 
+(require 'textmate)
 
 (require 'rspec-mode)
 (setq rspec-spec-command "rspec")
@@ -58,7 +58,7 @@
 
 
 (defun shell-command-on-buffer-file ()
- "prompts for a command and executes that command on to the associated 
+ "prompts for a command and executes that command on to the associated
  file of current buffer. if no buffer is associated gives an error"
   (interactive)
   (or (buffer-file-name) (error "no file is associated file to this buffer"))
@@ -120,4 +120,3 @@
 
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
