@@ -88,7 +88,7 @@
 (el-get 'sync)
 
 (if (window-system)
-  (set-frame-width (selected-frame) 120))
+  (set-frame-width (selected-frame) 200))
 
 (global-set-key (kbd "C-x C-g") 'magit-status)
 (global-set-key (kbd "M-s-“") 'indent-region)
