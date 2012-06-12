@@ -38,6 +38,14 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
 (require 'textmate)
 
+(add-hook 'textmate-mode-hook
+ (lambda ()
+   (define-key global-map (kbd "C-i") 'indent-for-tab-command)
+))
+
+(add-hook 'ruby-mode-hook
+     (lambda () (define-key ruby-mode-map (kbd "C-i") 'indent-for-tab-command)))
+
 (require 'rspec-mode)
 (setq rspec-spec-command "rspec")
 ;; (setq rspec-use-rvm t)
