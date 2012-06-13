@@ -1,4 +1,5 @@
 ;; provide access to marmalade package management
+;; testing 1 2 3
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
