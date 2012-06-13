@@ -78,14 +78,11 @@
          (cmd-to-run (concat my-cmd " " (buffer-file-name))))
    (shell-command cmd-to-run)))
 
+;;; rhtml mode
+(add-to-list 'load-path "~/.emacs.d/rhtml")
+(require 'rhtml-mode)
+(add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
 
-
-(setq el-get-sources
-      '((:name rhtml
-               :type git
-               :url "https://github.com/eschulte/rhtml.git"
-               :features rhtml-mode)))
-(el-get 'sync)
 
 (defun set-frame-size-according-to-resolution ()
   (interactive)
@@ -94,9 +91,9 @@
     ;; use 120 char wide window for largeish displays
     ;; and smaller 80 column windows for smaller displays
     ;; pick whatever numbers make sense for you
-    (if (> (x-display-pixel-width) 1280)
+    (if (> (x-display-pixel-width) 1366)
            (add-to-list 'default-frame-alist (cons 'width 200))
-           (add-to-list 'default-frame-alist (cons 'width 80)))
+           (add-to-list 'default-frame-alist (cons 'width 120)))
     ;; for the height, subtract a couple hundred pixels
     ;; from the screen height (for panels, menubars and
     ;; whatnot), then divide by the height of a char to
