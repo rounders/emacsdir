@@ -81,8 +81,8 @@
 
 ;;; rhtml mode
 (add-to-list 'load-path "~/.emacs.d/rhtml")
-(require 'rhtml-mode)
-(add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
+  (require 'rhtml-mode)
+  (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
 
 
 (defun set-frame-size-according-to-resolution ()
@@ -113,10 +113,6 @@
 (load "local")
 
 (add-to-list 'load-path "~/.emacs.d")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-
 
 (setq scss-compile-at-save nil)
 (setq css-indent-offset 2)
@@ -147,3 +143,18 @@
 
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+(require 'yasnippet)
+(yas/global-mode 1)
+
+;; Develop and keep personal snippets under ~/emacs.d/mysnippets
+(setq yas/root-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets/")
+
+;; Load the snippets
+(yas/load-directory yas/root-directory)
+
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+
+(load "myfun")
