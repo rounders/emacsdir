@@ -11,3 +11,4 @@ local
 eshell
 *.dat
 elpa/*
+url/*
