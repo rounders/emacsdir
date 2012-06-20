@@ -10,4 +10,4 @@ places
 local
 eshell
 *.dat
-
+elpa/*

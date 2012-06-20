@@ -1,160 +1,43 @@
-;; provide access to marmalade package management
-;; testing 1 2 3
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(package-initialize)
+(setq dotfiles-dir (file-name-directory
+                    (or (buffer-file-name) load-file-name)))
 
-(require 'package)
-(setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
-(package-initialize)
+;; Set up load path
+(add-to-list 'load-path dotfiles-dir)
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(require 'el-get)
+;; ensure my favourite packages are installed and required
+(require 'packages)
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/")
-;;(load-theme 'manoj-dark)
-;;(load-theme 'pastels-on-dark t)
 
-(global-set-key (kbd "C-c C-n") 'nav)
+;; Keep emacs Custom-settings in separate file
+(setq custom-file (expand-file-name "custom.el" dotfiles-dir))
+(load custom-file)
 
-(require 'rvm)
-(rvm-use-default);;
+;; Write backup files to own directory
+(setq backup-directory-alist `(("." . ,(expand-file-name
+                                        (concat dotfiles-dir "backups")))))
 
-(add-hook 'ruby-mode-hook
-          (lambda () (rvm-activate-corresponding-ruby)))
+;; Are we on a mac?
+(setq is-mac (equal system-type 'darwin))
 
-
-
-;;(enable-theme 'tron)
-
-;; ========== Enable Line and Column Numbering ==========
-
-;; Show line-number in the mode line
-(line-number-mode 1)
-
-;; Show column-number in the mode line
-(column-number-mode 1)
-
-(set-frame-font "Menlo-16")
-
-(setq scroll-conservatively 10000)
-
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
-(require 'textmate)
-
-(add-hook 'textmate-mode-hook
- (lambda ()
-   (define-key global-map (kbd "C-i") 'indent-for-tab-command)
-))
-
-(add-hook 'ruby-mode-hook
-     (lambda () (define-key ruby-mode-map (kbd "C-i") 'indent-for-tab-command)))
-
-(require 'rspec-mode)
-(setq rspec-spec-command "rspec")
-;; (setq rspec-use-rvm t)
-(setq rspec-use-rake-flag nil)
-(define-key rspec-mode-verifible-keymap (kbd "s") 'rspec-verify-single)
-
-(defadvice rspec-compile (around rspec-compile-around)
-  "Use BASH shell for running the specs because of ZSH issues."
-  (let ((shell-file-name "/bin/bash"))
-    ad-do-it))
-(ad-activate 'rspec-compile)
-
-(add-to-list 'load-path "~/.emacs.d/vendor/")
-(require 'peepopen)
-(textmate-mode)
-(setq ns-pop-up-frames nil)
-(define-key rspec-mode-keymap (kbd "s") 'rspec-verify-single)
+(require 'setup-rvm)
+(require 'setup-textmate-mode)
+(require 'setup-ruby-mode)
+(require 'setup-rspec-mode)
+(require 'setup-rhtml-mode)
+(require 'appearance)
+(require 'sane-defaults)
+(require 'setup-coffee-mode)
+(require 'setup-keychords)
+(require 'setup-yasnippet)
+(require 'setup-autocomplete)
+(require 'setup-css-and-scss-mode)
+(require 'key-bindings)
+(when is-mac (require 'setup-peepopen))
 
 
-(defun shell-command-on-buffer-file ()
- "prompts for a command and executes that command on to the associated
- file of current buffer. if no buffer is associated gives an error"
-  (interactive)
-  (or (buffer-file-name) (error "no file is associated file to this buffer"))
-  (let* ((my-cmd (read-shell-command "Command to run: "))
-         (cmd-to-run (concat my-cmd " " (buffer-file-name))))
-   (shell-command cmd-to-run)))
-
-;;; rhtml mode
-(add-to-list 'load-path "~/.emacs.d/rhtml")
-  (require 'rhtml-mode)
-  (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
-
-
-(defun set-frame-size-according-to-resolution ()
-  (interactive)
-  (if window-system
-  (progn
-    ;; use 120 char wide window for largeish displays
-    ;; and smaller 80 column windows for smaller displays
-    ;; pick whatever numbers make sense for you
-    (if (> (x-display-pixel-width) 1366)
-           (add-to-list 'default-frame-alist (cons 'width 200))
-           (add-to-list 'default-frame-alist (cons 'width 120)))
-    ;; for the height, subtract a couple hundred pixels
-    ;; from the screen height (for panels, menubars and
-    ;; whatnot), then divide by the height of a char to
-    ;; get the height we want
-    (add-to-list 'default-frame-alist
-         (cons 'height (/ (- (x-display-pixel-height) 200)
-                             (frame-char-height)))))))
-
-(set-frame-size-according-to-resolution)
-
-(global-set-key (kbd "C-x C-g") 'magit-status)
-(global-set-key (kbd "M-s-“") 'indent-region)
-
-;; put any machine-local configuration into local/local.el
-(add-to-list 'load-path "~/.emacs.d/local")
-(load "local")
-
-(add-to-list 'load-path "~/.emacs.d")
-
-(setq scss-compile-at-save nil)
-(setq css-indent-offset 2)
-
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
-
-
-
-(global-set-key (kbd "C-x C-f") 'textmate-goto-file)
-
-(require 'coffee-mode)
-(defun coffee-custom ()
-  "coffee-mode-hook"
-
-  ;; CoffeeScript uses two spaces.
-  (make-local-variable 'tab-width)
-  (set 'tab-width 2))
-
-(add-hook 'coffee-mode-hook 'coffee-custom)
-
-(require 'key-chord)
-(key-chord-mode 1)
-(key-chord-define-global "FF"     'find-file)
-
-;; remove trailing whitespace
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(require 'ace-jump-mode)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
-(require 'yasnippet)
-(yas/global-mode 1)
-
-;; Develop and keep personal snippets under ~/emacs.d/mysnippets
-(setq yas/root-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets/")
-
-;; Load the snippets
-(yas/load-directory yas/root-directory)
-
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
-
-(load "myfun")
+;; Functions (load all files in defuns-dir)
+(setq defuns-dir (expand-file-name "defuns" dotfiles-dir))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
