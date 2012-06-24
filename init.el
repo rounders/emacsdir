@@ -32,6 +32,7 @@
 (require 'setup-yasnippet)
 (require 'setup-autocomplete)
 (require 'setup-css-and-scss-mode)
+(require 'setup-handlebars-mode)
 (require 'key-bindings)
 (when is-mac (require 'setup-peepopen))
 
