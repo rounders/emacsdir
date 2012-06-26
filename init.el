@@ -33,8 +33,13 @@
 (require 'setup-autocomplete)
 (require 'setup-css-and-scss-mode)
 (require 'setup-handlebars-mode)
+(require 'setup-markdown-mode)
+(require 'setup-feature-mode)
 (require 'key-bindings)
 (when is-mac (require 'setup-peepopen))
+
+;; for easy navigation between windows
+(windmove-default-keybindings)
 
 
 ;; Functions (load all files in defuns-dir)
