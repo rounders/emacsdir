@@ -1,8 +1,17 @@
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
 
+(setq site-lisp-dir (expand-file-name "site-lisp" dotfiles-dir))
+
+
 ;; Set up load path
 (add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path site-lisp-dir)
+
+;; Add external projects to load path
+(dolist (project (directory-files site-lisp-dir t "\\w+"))
+  (when (file-directory-p project)
+    (add-to-list 'load-path project)))
 
 ;; ensure my favourite packages are installed and required
 (require 'packages)
@@ -35,6 +44,10 @@
 (require 'setup-handlebars-mode)
 (require 'setup-markdown-mode)
 (require 'setup-feature-mode)
+(require 'setup-ido-mode)
+(require 'mark-more-like-this)
+(require 'inline-string-rectangle)
+(require 'rename-sgml-tag)
 (require 'key-bindings)
 (when is-mac (require 'setup-peepopen))
 
