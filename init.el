@@ -45,6 +45,7 @@
 (require 'setup-markdown-mode)
 (require 'setup-feature-mode)
 (require 'setup-ido-mode)
+(require 'setup-linum-mode)
 (require 'mark-more-like-this)
 (require 'inline-string-rectangle)
 (require 'rename-sgml-tag)
