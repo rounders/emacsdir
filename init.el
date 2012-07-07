@@ -29,6 +29,7 @@
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 
+
 (require 'setup-rvm)
 (require 'setup-textmate-mode)
 (require 'setup-ruby-mode)
@@ -61,3 +62,7 @@
 (dolist (file (directory-files defuns-dir t "\\w+"))
   (when (file-regular-p file)
     (load file)))
+
+;; disable autofill-mode
+(auto-fill-mode -1)
+(remove-hook 'text-mode-hook 'turn-on-auto-fill)
