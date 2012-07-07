@@ -6,15 +6,27 @@
     ;; and smaller 80 column windows for smaller displays
     ;; pick whatever numbers make sense for you
     (if (> (x-display-pixel-width) 1366)
-           (add-to-list 'default-frame-alist (cons 'width 200))
-           (add-to-list 'default-frame-alist (cons 'width 120)))
+        (progn
+          (add-to-list 'default-frame-alist (cons 'width 200))
+          (add-to-list 'default-frame-alist
+                       (cons 'height (/ (- (x-display-pixel-height) 400)
+                                        (frame-char-height))))
+
+          (set-frame-font "Menlo-12"))
+      (progn
+        (add-to-list 'default-frame-alist (cons 'width 120))
+        (add-to-list 'default-frame-alist
+                     (cons 'height (/ (- (x-display-pixel-height) 200)
+                                      (frame-char-height))))
+
+        (set-frame-font "Menlo-14")))
+    )))
+
+
     ;; for the height, subtract a couple hundred pixels
     ;; from the screen height (for panels, menubars and
     ;; whatnot), then divide by the height of a char to
     ;; get the height we want
-    (add-to-list 'default-frame-alist
-         (cons 'height (/ (- (x-display-pixel-height) 400)
-                             (frame-char-height)))))))
 
 (set-frame-size-according-to-resolution)
 
@@ -24,7 +36,7 @@
 ;; Show column-number in the mode line
 (column-number-mode 1)
 
-(set-frame-font "Menlo-12")
+
 
 
 (provide 'appearance)
