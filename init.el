@@ -30,13 +30,12 @@
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 
-
+(require 'appearance)
 (require 'setup-rvm)
 (require 'setup-textmate-mode)
 (require 'setup-ruby-mode)
 (require 'setup-rspec-mode)
 (require 'setup-rhtml-mode)
-(require 'appearance)
 (require 'sane-defaults)
 (require 'setup-coffee-mode)
 (require 'setup-keychords)
@@ -67,5 +66,6 @@
 ;; disable autofill-mode
 (auto-fill-mode -1)
 (remove-hook 'text-mode-hook 'turn-on-auto-fill)
+(remove-hook 'text-mode-hook 'turn-on-flyspell)
 
 (setq shell-file-name "/bin/bash")

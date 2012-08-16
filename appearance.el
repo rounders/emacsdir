@@ -12,7 +12,7 @@
                        (cons 'height (/ (- (x-display-pixel-height) 400)
                                         (frame-char-height))))
 
-          (set-frame-font "Menlo-12"))
+          (set-frame-font "Menlo-14"))
       (progn
         (add-to-list 'default-frame-alist (cons 'width 120))
         (add-to-list 'default-frame-alist
