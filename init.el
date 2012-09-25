@@ -3,6 +3,7 @@
 
 (setq site-lisp-dir (expand-file-name "site-lisp" dotfiles-dir))
 
+(setq dropbox-notes-path "~/Dropbox/notes")
 (setq todo-file-on-dropbox "~/Dropbox/notes/todo.org")
 
 ;; Set up load path
