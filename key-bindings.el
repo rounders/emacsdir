@@ -1,4 +1,4 @@
-(global-set-key (kbd "C-c C-n") 'nav)
+(global-set-key (kbd "C-c n") 'nav)
 
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
