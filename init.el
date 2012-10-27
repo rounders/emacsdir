@@ -70,3 +70,6 @@
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
 
 (setq shell-file-name "/bin/bash")
+
+;; -- https://groups.google.com/forum/?fromgroups=#!topic/emacs-on-rails/Y-TX-RYgY3Y
+(add-to-list 'grep-files-aliases (cons "rails" "*.rb *.erb *.js *.css *.sass *.task"))

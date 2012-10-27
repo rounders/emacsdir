@@ -1,3 +1,10 @@
+;; (defun rails-project-search (keyword)
+;;   "search a rails project"
+;;   (eval-after-load "grep"
+;;   '(grep-compute-defaults))
+;;   (interactive "sRegular Expression: ")
+;;   (rgrep keyword "*" (textmate-project-root)))
+
 (defun mojo (arg)
   "mojo line ARG, counting from line 1 at beginning of buffer"
   (interactive "Nmojo line: ")
