@@ -1,9 +1,11 @@
-;; (defun rails-project-search (keyword)
-;;   "search a rails project"
-;;   (eval-after-load "grep"
-;;   '(grep-compute-defaults))
-;;   (interactive "sRegular Expression: ")
-;;   (rgrep keyword "*" (textmate-project-root)))
+;; functions that I'm unsure about
+;; start their lives here.
+
+;; http://stackoverflow.com/questions/3417438/closing-all-other-buffers-in-emacs
+(defun kill-other-buffers ()
+      "Kill all other buffers."
+      (interactive)
+      (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 (defun mojo (arg)
   "mojo line ARG, counting from line 1 at beginning of buffer"
