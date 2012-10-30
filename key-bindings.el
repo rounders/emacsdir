@@ -10,6 +10,8 @@
 
 (global-set-key (kbd "M-s-“") 'indent-region)
 
+(define-key global-map (kbd "C-c C-p") 'project-search)
+
 (define-key rspec-mode-keymap (kbd "s") 'rspec-verify-single)
 
 (add-hook 'ruby-mode-hook
@@ -31,5 +33,12 @@
 
 ;;
 (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)
+
+;; bindings for changing font sizes
+;; uses custom defun in defuns/font-size.el
+(global-set-key (kbd "s-+") 'increase-font-size)
+(global-set-key (kbd "s--") 'decrease-font-size)
+(global-set-key (kbd "s-_") 'decrease-font-size)
+
 
 (provide 'key-bindings)
