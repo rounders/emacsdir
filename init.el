@@ -20,6 +20,7 @@
 
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/")
 
+
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" dotfiles-dir))
 (load custom-file)
@@ -52,6 +53,7 @@
 (require 'inline-string-rectangle)
 (require 'rename-sgml-tag)
 (require 'key-bindings)
+(require 'setup-rgrep)
 (when is-mac (require 'setup-peepopen))
 
 ;; for easy navigation between windows
@@ -70,6 +72,3 @@
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
 
 (setq shell-file-name "/bin/bash")
-
-;; -- https://groups.google.com/forum/?fromgroups=#!topic/emacs-on-rails/Y-TX-RYgY3Y
-(add-to-list 'grep-files-aliases (cons "rails" "*.rb *.erb *.js *.css *.sass *.task"))
