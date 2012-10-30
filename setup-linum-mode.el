@@ -17,4 +17,5 @@
 
      (setq linum-format 'linum-format-func)))
 
+(global-linum-mode t)
 (provide 'setup-linum-mode)
