@@ -55,6 +55,8 @@
 (require 'key-bindings)
 (require 'setup-rgrep)
 (when is-mac (require 'setup-peepopen))
+(require 'setup-rcodetools)
+
 
 ;; for easy navigation between windows
 (windmove-default-keybindings)

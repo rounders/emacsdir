@@ -17,6 +17,10 @@
 (add-hook 'ruby-mode-hook
      (lambda () (define-key ruby-mode-map (kbd "C-i") 'indent-for-tab-command)))
 
+(add-hook 'ruby-mode-hook
+          '(lambda () (define-key ruby-mode-map (kbd "C-x >") 'annotate-ruby)))
+
+
 (add-hook 'textmate-mode-hook
  (lambda ()
    (define-key global-map (kbd "C-i") 'indent-for-tab-command)
@@ -39,6 +43,8 @@
 (global-set-key (kbd "s-+") 'increase-font-size)
 (global-set-key (kbd "s--") 'decrease-font-size)
 (global-set-key (kbd "s-_") 'decrease-font-size)
+
+
 
 
 (provide 'key-bindings)

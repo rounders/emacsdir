@@ -15,7 +15,7 @@
 
 (defvar prelude-packages
   '(key-chord ace-jump-mode ruby-mode coffee-mode expand-region find-file-in-project ido-ubiquitous nav magit rspec-mode rvm scss-mode starter-kit textmate
-    yasnippet pastels-on-dark-theme handlebars-mode markdown-mode lorem-ipsum inf-ruby)
+    yasnippet pastels-on-dark-theme handlebars-mode markdown-mode lorem-ipsum inf-ruby gist)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()
