@@ -18,6 +18,8 @@
 ;; ensure my favourite packages are installed and required
 (require 'packages)
 
+;; places where custom themes might be living
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/")
 
 
