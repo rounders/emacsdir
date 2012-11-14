@@ -44,6 +44,10 @@
 (global-set-key (kbd "s--") 'decrease-font-size)
 (global-set-key (kbd "s-_") 'decrease-font-size)
 
+;; binding for next-error and prev-error because
+;; I can't remember M-g n and M-g p
+(global-set-key (kbd "s->") `next-error)
+(global-set-key (kbd "s-<") 'previous-error)
 
 
 
