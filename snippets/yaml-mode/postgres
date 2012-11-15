@@ -1,0 +1,10 @@
+# name: postgres database.yml
+# key: postgres
+# --
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: ${0:development}
+  pool: 5
+  username: fharbec
+  password:
