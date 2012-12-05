@@ -54,6 +54,7 @@
 (require 'multiple-cursors)
 (require 'key-bindings)
 (require 'setup-rgrep)
+(require 'setup-yaml-mode)
 (when is-mac (require 'setup-peepopen))
 (require 'setup-rcodetools)
 
