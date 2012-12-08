@@ -57,6 +57,7 @@
 (require 'setup-yaml-mode)
 (when is-mac (require 'setup-peepopen))
 (require 'setup-rcodetools)
+(require 'setup-project-specific-configuration)
 
 
 ;; for easy navigation between windows
