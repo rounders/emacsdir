@@ -57,8 +57,10 @@
 (require 'setup-yaml-mode)
 (when is-mac (require 'setup-peepopen))
 (require 'setup-rcodetools)
+(require 'setup-ag)
 (require 'setup-project-specific-configuration)
 (require 'magithub)
+
 
 ;; for easy navigation between windows
 (windmove-default-keybindings)
