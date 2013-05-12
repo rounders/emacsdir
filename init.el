@@ -58,7 +58,7 @@
 (when is-mac (require 'setup-peepopen))
 (require 'setup-rcodetools)
 (require 'setup-project-specific-configuration)
-
+(require 'magithub)
 
 ;; for easy navigation between windows
 (windmove-default-keybindings)
