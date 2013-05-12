@@ -10,7 +10,7 @@
 
 (global-set-key (kbd "M-s-“") 'indent-region)
 
-(define-key global-map (kbd "C-c C-p") 'project-search)
+(define-key global-map (kbd "C-c C-p") 'ag-project-regexp)
 
 (define-key rspec-mode-keymap (kbd "s") 'rspec-verify-single)
 
