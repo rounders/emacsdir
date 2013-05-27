@@ -61,6 +61,9 @@
 (require 'setup-project-specific-configuration)
 (require 'magithub)
 
+;; ffap tries to ping something that looks like domain when trying to
+;; open files - turn that off
+(setq ffap-machine-p-known 'reject)
 
 ;; for easy navigation between windows
 (windmove-default-keybindings)
