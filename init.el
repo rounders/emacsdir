@@ -42,6 +42,7 @@
 (require 'setup-rhtml-mode)
 (require 'sane-defaults)
 (require 'setup-coffee-mode)
+(require 'setup-javascript-mode)
 (require 'setup-keychords)
 (require 'setup-yasnippet)
 (require 'setup-autocomplete)
