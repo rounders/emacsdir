@@ -71,7 +71,7 @@
     (shell-command-to-string
      (format "open 'peepopen://%s?editor=%s'"
              (expand-file-name root)
-             (invocation-name)))))
+             "emacs"))))
 
 ;;;###autoload
 (defun peepopen-bind-keys ()
