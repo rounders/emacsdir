@@ -40,6 +40,7 @@
 (require 'setup-ruby-mode)
 (require 'setup-rspec-mode)
 (require 'setup-rhtml-mode)
+(require 'setup-slim-mode)
 (require 'sane-defaults)
 (require 'setup-coffee-mode)
 (require 'setup-javascript-mode)
