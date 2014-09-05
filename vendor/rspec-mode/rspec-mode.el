@@ -4,7 +4,7 @@
 ;; Author: Peter Williams, et al.
 ;; URL: http://github.com/pezra/rspec-mode
 ;; Created: 2011
-;; Version: 1.8
+;; Version: 1.11
 ;; Keywords: rspec ruby
 ;; Package-Requires: ((ruby-mode "1.0") (cl-lib "0.4"))
 
@@ -76,6 +76,8 @@
 ;;
 ;;; Change Log:
 ;;
+;; 1.11 - Switching between method, its specs and back (Renan Ranelli)
+;; 1.9 - Support for RSpec 3.
 ;; 1.8 - Support for Capybara's acceptance test DSL (Ales Guzik)
 ;; 1.7 - Support for Spring (Tomy Kaira)
 ;;     - New commands: `rspec-verify-matching', `rspec-verify-continue'
@@ -113,7 +115,9 @@
 (define-key rspec-mode-verifiable-keymap (kbd "v") 'rspec-verify)
 (define-key rspec-mode-verifiable-keymap (kbd "a") 'rspec-verify-all)
 (define-key rspec-mode-verifiable-keymap (kbd "t") 'rspec-toggle-spec-and-target)
+(define-key rspec-mode-verifiable-keymap (kbd "e") 'rspec-toggle-spec-and-target-find-example)
 (define-key rspec-mode-verifiable-keymap (kbd "4 t") 'rspec-find-spec-or-target-other-window)
+(define-key rspec-mode-verifiable-keymap (kbd "4 e") 'rspec-find-spec-or-target-find-example-other-window)
 (define-key rspec-mode-verifiable-keymap (kbd "r") 'rspec-rerun)
 (define-key rspec-mode-verifiable-keymap (kbd "m") 'rspec-verify-matching)
 (define-key rspec-mode-verifiable-keymap (kbd "c") 'rspec-verify-continue)
@@ -189,6 +193,16 @@ Not used when running specs using Zeus or Spring."
   :type 'string
   :group 'rspec-mode)
 
+(defcustom rspec-snippets-fg-syntax nil
+  "Defines whether to use the full or concise FactoryGirl syntax in snippets.
+When the value is neither `full', nor `concise', use the concise syntax if
+there's an `include FactoryGirl::Syntax::Methods' statement in spec_helper."
+  :type '(choice
+          (const full)
+          (const concise)
+          (const nil))
+  :group 'rspec-mode)
+
 ;;;###autoload
 (define-minor-mode rspec-mode
   "Minor mode for RSpec files"
@@ -219,7 +233,7 @@ Not used when running specs using Zeus or Spring."
   :lighter "" :keymap `((,rspec-key-command-prefix . rspec-dired-mode-keymap)))
 
 (defconst rspec-imenu-generic-expression
-  '(("Examples"  "^\\( *\\(it\\|describe\\|context\\|feature\\|scenario\\) +.+\\)"          1))
+  '(("Examples"  "^\\( *\\(its?\\|specify\\|example\\|describe\\|context\\|feature\\|scenario\\) +.+\\)" 1))
   "The imenu regex to parse an outline of the rspec file")
 
 (defconst rspec-spec-file-name-re "\\(_\\|-\\)spec\\.rb\\'"
@@ -270,7 +284,7 @@ Not used when running specs using Zeus or Spring."
     (goto-char
      (save-excursion
        (end-of-line)
-       (unless (and (search-backward-regexp "^[[:space:]]*\\(it\\|scenario\\)[[:space:]]*(?[\"']" nil t)
+       (unless (and (re-search-backward "^[[:space:]]*\\(it\\|scenario\\)[[:space:]]*(?[\"']" nil t)
                     (save-excursion (ruby-end-of-block) (< start (point))))
          (error "Unable to find an example"))
        (point)))))
@@ -305,7 +319,8 @@ Not used when running specs using Zeus or Spring."
   (when (rspec-example-pending-p)
     (save-excursion
       (rspec-beginning-of-example)
-      (search-forward-regexp "^[[:space:]]*pending\\([[:space:](]\\|$\\)" (save-excursion (ruby-end-of-block) (point)))
+      (re-search-forward "^[[:space:]]*pending\\([[:space:](]\\|$\\)"
+                         (save-excursion (ruby-end-of-block) (point)))
       (beginning-of-line)
       (delete-region (save-excursion (beginning-of-line) (point))
                      (save-excursion (forward-line 1) (point))))))
@@ -339,12 +354,12 @@ in long-running test suites."
   "Runs the specified example at the point of the current buffer."
   (interactive)
   (rspec-run-single-file
-   (rspec-spec-file-for (buffer-file-name))
-   (rspec-core-options)
-   (concat "--line "
-           (save-restriction
-             (widen)
-             (number-to-string (line-number-at-pos))))))
+   (cons
+    (rspec-spec-file-for (buffer-file-name))
+    (save-restriction
+      (widen)
+      (number-to-string (line-number-at-pos))))
+   (rspec-core-options)))
 
 (defun rspec-dired-verify ()
   "Runs all specs in the current directory."
@@ -369,12 +384,52 @@ target, otherwise the spec."
   (interactive)
   (find-file (rspec-spec-or-target)))
 
+(defun rspec--toggle-spec-and-target-find-method (toggle-function)
+  (cl-labels
+      ((get-spec-name ()
+                      (save-excursion
+                        (end-of-line)
+                        (or
+                         (re-search-backward "\\(?:describe\\|context\\) ['\"][#\\.]\\(.*\\)['\"] do" nil t)
+                         (error "No method spec before point"))
+                        (match-string 1)))
+       (get-method-name ()
+                        (save-excursion
+                          (end-of-line)
+                          (or
+                           (re-search-backward "def \\(?:self\\)?\\(.?[_a-zA-Z]+\\)" nil t)
+                           (error "No method definition before point"))
+                          (match-string 1))))
+    (let* ((spec-p (rspec-buffer-is-spec-p))
+           (target-regexp (if spec-p
+                              (format "def \\(self\\)?\\.?%s" (get-spec-name))
+                            (format "\\(describe\\|context\\) ['\"]#?%s['\"]" (get-method-name)))))
+      (funcall toggle-function)
+      (if (string-match-p target-regexp (buffer-string))
+          (progn
+            (beginning-of-buffer)
+            (re-search-forward target-regexp))
+        (message "No matching %s" (if spec-p "method" "spec"))))))
+
+(defun rspec-toggle-spec-and-target-find-example ()
+  "Just like rspec-toggle-spec-and-target but tries to toggle between
+the specific example and method given the current point."
+  (interactive)
+  (rspec--toggle-spec-and-target-find-method 'rspec-toggle-spec-and-target))
+
 (defun rspec-find-spec-or-target-other-window ()
   "Finds in the other window the spec or the target file.
 If the current buffer is visiting a spec file, finds the target,
 otherwise the spec."
   (interactive)
   (find-file-other-window (rspec-spec-or-target)))
+
+(defun rspec-find-spec-or-target-find-example-other-window ()
+  "Finds in the other window the spec or the target file, and tries
+  to find the corresponding example or method given the current
+  point."
+  (interactive)
+  (rspec--toggle-spec-and-target-find-method 'rspec-find-spec-or-target-other-window))
 
 (defun rspec-spec-or-target ()
   (if (rspec-buffer-is-spec-p)
@@ -541,11 +596,16 @@ file if it exists, or sensible defaults otherwise"
 
 (defun rspec-runner-target (target)
   "Processes TARGET to pass it to the runner.
-TARGET can be a file, a directory, or a list of such."
+TARGET can be a file, a directory, a list of such,
+or a cons (FILE . LINE), to run one example."
   (let ((use-rake (rspec-rake-p)))
     (concat (when use-rake "SPEC=\'")
             (if (listp target)
-                (mapconcat #'shell-quote-argument target " ")
+                (if (listp (cdr target))
+                    (mapconcat #'shell-quote-argument target " ")
+                  (concat (shell-quote-argument (car target))
+                          ":"
+                          (cdr target)))
               (shell-quote-argument target))
             (when use-rake "\'"))))
 
@@ -623,12 +683,30 @@ TARGET can be a file, a directory, or a list of such."
                   "rspec +\\([0-9A-Za-z@_./\:-]+\\.rb\\):\\([0-9]+\\)" 1 2 nil 2 1))
                compilation-error-regexp-alist-alist))
   (setq font-lock-defaults '(rspec-compilation-mode-font-lock-keywords t))
-  (add-hook 'compilation-filter-hook 'rspec-colorize-compilation-buffer nil t))
+  (add-hook 'compilation-filter-hook 'rspec-colorize-compilation-buffer nil t)
+  (add-hook 'compilation-finish-functions 'rspec-handle-error nil t))
 
 (defun rspec-colorize-compilation-buffer ()
   (toggle-read-only)
   (ansi-color-apply-on-region compilation-filter-start (point))
   (toggle-read-only))
+
+(defun rspec-handle-error (&rest ignore)
+  (save-excursion
+    (goto-char (point-max))
+    (when (save-excursion
+            (forward-line -10)
+            (search-forward "`+' for LL():Rake::Scope::EmptyScope" nil t))
+      (let ((inhibit-modification-hooks t)
+            (inhibit-read-only t)
+            (url "https://github.com/pezra/rspec-mode/issues/84"))
+        (insert (format "\n%s\n"
+                        (propertize
+                         "You seem to be using Rake 0.9. Rake 10 is recommended."
+                         'font-lock-face 'error)))
+        (insert "See ")
+        (insert-text-button url 'type 'help-url 'help-args (list url))
+        (insert ".\n")))))
 
 (defun rspec-project-root (&optional directory)
   "Finds the root directory of the project by walking the directory tree until it finds a rake file."
@@ -638,6 +716,24 @@ TARGET can be a file, a directory, or a list of such."
           ((file-exists-p (expand-file-name "Rakefile" directory)) directory)
           ((file-exists-p (expand-file-name "Gemfile" directory)) directory)
           (t (rspec-project-root (file-name-directory (directory-file-name directory)))))))
+
+(defun rspec--include-fg-syntax-methods-p ()
+  "Check whether FactoryGirl::Syntax::Methods is included in spec_helper."
+  (cl-case rspec-snippets-fg-syntax
+    (full nil)
+    (concise t)
+    (nil
+     (with-temp-buffer
+       (insert-file-contents
+        (concat (rspec-project-root) "spec/spec_helper.rb"))
+       (re-search-forward "include +FactoryGirl::Syntax::Methods" nil t)))))
+
+(defun rspec-snippets-fg-method-call (method)
+  "Return FactoryGirl method call for METHOD, for use in snippets.
+Looks at FactoryGirl::Syntax::Methods usage in spec_helper."
+  (if (rspec--include-fg-syntax-methods-p)
+      method
+    (concat "FactoryGirl." method)))
 
 ;;;###autoload
 (defun rspec-enable-appropriate-mode ()
