@@ -31,6 +31,9 @@
 (setq backup-directory-alist `(("." . ,(expand-file-name
                                         (concat dotfiles-dir "backups")))))
 
+ (setq auto-save-file-name-transforms
+          `((".*" ,temporary-file-directory t)))
+
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 
@@ -39,7 +42,7 @@
 (require 'setup-textmate-mode)
 (require 'setup-ruby-mode)
 (require 'setup-rspec-mode)
-(require 'setup-rhtml-mode)
+;;(require 'setup-rhtml-mode)
 (require 'setup-slim-mode)
 (require 'sane-defaults)
 (require 'setup-coffee-mode)
@@ -48,7 +51,7 @@
 (require 'setup-yasnippet)
 (require 'setup-autocomplete)
 (require 'setup-css-and-scss-mode)
-(require 'setup-handlebars-mode)
+(require 'setup-web-mode)
 (require 'setup-markdown-mode)
 (require 'setup-feature-mode)
 (require 'setup-ido-mode)
