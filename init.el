@@ -2,12 +2,13 @@
                     (or (buffer-file-name) load-file-name)))
 
 (setq site-lisp-dir (expand-file-name "site-lisp" dotfiles-dir))
+(setq lisp-dir (expand-file-name "lisp" dotfiles-dir))
 
 (setq dropbox-notes-path "~/Dropbox/notes")
 (setq todo-file-on-dropbox "~/Dropbox/notes/todo.org")
 
 ;; Set up load path
-(add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path lisp-dir)
 (add-to-list 'load-path site-lisp-dir)
 
 ;; Add external projects to load path
@@ -24,7 +25,7 @@
 
 
 ;; Keep emacs Custom-settings in separate file
-(setq custom-file (expand-file-name "custom.el" dotfiles-dir))
+(setq custom-file (expand-file-name "custom.el" lisp-dir))
 (load custom-file)
 
 ;; Write backup files to own directory
