@@ -12,3 +12,6 @@ eshell
 *.dat
 elpa/*
 url/*
+projectile.cache
+projectile-bookmarks.eld
+var
