@@ -65,6 +65,9 @@
 (require 'setup-rcodetools)
 (require 'setup-ag)
 (require 'setup-project-specific-configuration)
+(require 'helm-config)
+(require 'setup-projectile)
+
 
 ;; ffap tries to ping something that looks like domain when trying to
 ;; open files - turn that off
