@@ -15,3 +15,5 @@ url/*
 projectile.cache
 projectile-bookmarks.eld
 var
+.mc-lists.el
+.DS_Store
