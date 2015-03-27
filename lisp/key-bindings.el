@@ -11,6 +11,8 @@
 (global-set-key (kbd "M-s-“") 'indent-region)
 
 (define-key global-map (kbd "C-c C-p") 'ag-project-regexp)
+(define-key global-map (kbd "s-y") 'helm-projectile-find-file)
+
 
 (define-key rspec-mode-keymap (kbd "s") 'rspec-verify-single)
 
@@ -24,6 +26,7 @@
 (add-hook 'textmate-mode-hook
  (lambda ()
    (define-key global-map (kbd "C-i") 'indent-for-tab-command)
+   (define-key *textmate-mode-map* [(super t)] 'helm-projectile-find-file)
 ))
 
 ;; key bindings for multiple-cursors
