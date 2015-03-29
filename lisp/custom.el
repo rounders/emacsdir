@@ -6,7 +6,7 @@
  ;; If there is more than one, they won't work right.
  '(ag-ignore-list
    (quote
-    ("ember/tmp/**/*" "ember/log/**/*" "log/*" "tmp/**/*")))
+    ("ember/tmp/**/*" "ember/log/**/*" "log/*" "tmp/**/*" "**/node_modules/**" "**/bower_components/**")))
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(ansi-term-color-vector
