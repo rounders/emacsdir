@@ -67,6 +67,9 @@
 (require 'helm-config)
 (require 'setup-projectile)
 
+;; disable visual bell
+;; see https://www.reddit.com/r/emacs/comments/3omsr2/weird_display_issue_in_os_x/
+(setq ring-bell-function (lambda () (message "*woop*")))
 
 ;; ffap tries to ping something that looks like domain when trying to
 ;; open files - turn that off
