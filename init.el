@@ -32,6 +32,9 @@
 (setq backup-directory-alist `(("." . ,(expand-file-name
                                         (concat dotfiles-dir "backups")))))
 
+;; disable lockfiles
+(setq create-lockfiles nil)
+
  (setq auto-save-file-name-transforms
           `((".*" ,temporary-file-directory t)))
 
