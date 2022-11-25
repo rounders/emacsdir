@@ -5,7 +5,7 @@
 ;;(setq yas/root-directory "~/.emacs.d/elpa/yasnippet-0.6.1/snippets/")
 (setq yas-snippet-dirs
       '("~/.emacs.d/snippets"            ;; personal snippets
-        "~/.emacs.d/elpa/yasnippet-0.8.0/snippets/" ;; the default collection
+        "~/.emacs.d/elpa/yasnippet-20200604.246/snippets/" ;; the default collection
         ))
 
 (yas/global-mode 1)

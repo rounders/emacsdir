@@ -8,7 +8,7 @@
              '("tromey" . "http://tromey.com/elpa/") t)
 
 (add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize)
 
@@ -17,7 +17,7 @@
 
 
 (defvar prelude-packages
-  '(key-chord ace-jump-mode coffee-mode expand-region find-file-in-project ido-ubiquitous nav magit rvm scss-mode starter-kit textmate yasnippet pastels-on-dark-theme handlebars-mode markdown-mode lorem-ipsum inf-ruby gist auto-complete multiple-cursors yaml-mode dash slim-mode web-mode s helm projectile helm-projectile helm-ag php-mode)
+  '(key-chord ace-jump-mode coffee-mode expand-region find-file-in-project ido-completing-read+ nav magit rvm scss-mode starter-kit textmate yasnippet pastels-on-dark-theme handlebars-mode markdown-mode lorem-ipsum inf-ruby gist auto-complete multiple-cursors yaml-mode dash slim-mode web-mode s helm projectile helm-projectile helm-ag php-mode rjsx-mode)
   "A list of packages to ensure are installed at launch.")
 
 (defun prelude-packages-installed-p ()

@@ -4,13 +4,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ag-highlight-search t)
  '(ag-ignore-list
    (quote
-    ("ember/tmp/**/*" "ember/log/**/*" "log/*" "tmp/**/*" "**/node_modules/**" "**/bower_components/**")))
+    ("ember/tmp/**/*" "ember/log/**/*" "log/*" "tmp/**/*" "**/node_modules/**" "**/bower_components/**" "node_modules/*" "public/packs/*" "public/packs-test/*")))
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
  '(ansi-term-color-vector
-   [unspecified "#1d1f21" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#81a2be" "#c5c8c6"])
+   [unspecified "#1d1f21" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#81a2be" "#c5c8c6"] t)
  '(background-color "#042028")
  '(background-mode dark)
  '(coffee-tab-width 2)
@@ -22,7 +23,11 @@
  '(fci-rule-color "#383838")
  '(foreground-color "#708183")
  '(grep-find-ignored-directories (quote (".git" "log" "tmp")))
- '(grep-find-ignored-files (quote (".#*" "*.jpg" "*.jpeg" "*.gif" "*.png"))))
+ '(grep-find-ignored-files (quote (".#*" "*.jpg" "*.jpeg" "*.gif" "*.png")))
+ '(package-enable-at-startup nil)
+ '(package-selected-packages
+   (quote
+    (zenburn-theme yasnippet yaml-mode web-mode textmate starter-kit slim-mode scss-mode s rvm rjsx-mode php-mode pastels-on-dark-theme nav multiple-cursors mode-compile markdown-mode lorem-ipsum key-chord inf-ruby helm-projectile helm-ag handlebars-mode gist feature-mode expand-region color-theme-solarized coffee-mode auto-complete anything-match-plugin anything ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

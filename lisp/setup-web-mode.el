@@ -3,6 +3,7 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.eco$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ejs$" . web-mode))
 
 (defun my-web-mode-hook ()
   "Hooks for Web mode."

@@ -1,0 +1,9 @@
+# name: mysql database.yml
+# key: mysql
+# --
+development:
+  adapter: mysql2
+  host: localhost
+  database: ${0:development}
+  username: ${1}
+  password: ${2}

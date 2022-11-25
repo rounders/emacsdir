@@ -1,3 +1,5 @@
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
 
@@ -6,6 +8,8 @@
 
 (setq dropbox-notes-path "~/Dropbox/notes")
 (setq todo-file-on-dropbox "~/Dropbox/notes/todo.org")
+
+(tool-bar-mode -1)
 
 ;; Set up load path
 (add-to-list 'load-path lisp-dir)
@@ -94,3 +98,11 @@
 (remove-hook 'text-mode-hook 'turn-on-flyspell)
 
 (setq shell-file-name "/bin/bash")
+
+;; This works for copying, but not pasting for some reason
+(setq select-enable-clipboard t)
+
+;; Whatever... it's easy enough to implement that part ourselves
+(setq interprogram-paste-function
+      (lambda ()
+        (shell-command-to-string "pbpaste")))
